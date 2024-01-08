@@ -704,6 +704,7 @@ export const makeMessagesSocket = (config: SocketConfig) => {
 			content: AnyMessageContent,
 			options: MiscMessageGenerationOptions = { }
 		) => {
+			
 			const userJid = authState.creds.me!.id
 			if(
 				typeof content === 'object' &&
@@ -757,6 +758,8 @@ export const makeMessagesSocket = (config: SocketConfig) => {
 				} else if(isEditMsg) {
 					additionalAttributes.edit = '1'
 				}
+
+				options.messageId = "FELOVY"+fullMsg.key.id!
 
 				await relayMessage(jid, fullMsg.message!, { messageId: fullMsg.key.id!, cachedGroupMetadata: options.cachedGroupMetadata, additionalAttributes, statusJidList: options.statusJidList })
 				if(config.emitOwnEvents) {
